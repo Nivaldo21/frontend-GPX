@@ -1,0 +1,25 @@
+<div>
+  <form class="bg-gray-200 p-5 rounded-lg my-5" (ngSubmit)="addOrUpdatePerson()">
+    <h2 class="text-xl font-semibold">Form Person</h2>
+    <div class="flex gap-10 mt-3 flex-wrap justify-start">
+      <input id="firstName" name="firstName" [(ngModel)]="newPerson.firstName" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" placeholder="Nombre(s)" />
+      <input id="lastNameP" name="lastNameP" [(ngModel)]="newPerson.lastNameP" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" placeholder="Apellido Paterno" />
+      <input id="lastNameM" name="lastNameM" [(ngModel)]="newPerson.lastNameM" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" placeholder="Apellido Materno" />
+      <input id="address" name="address" [(ngModel)]="newPerson.address" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" placeholder="Dirección" />
+      <input id="phone" name="phone" [(ngModel)]="newPerson.phone" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" placeholder="Teléfono" />
+    </div>
+    <div class="flex gap-5 justify-center my-5">
+      <button class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5" type="submit">{{ flagEdit ? 'Editar Persona' : 'Agregar Persona' }}</button>
+      <button class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5" type="button" (click)="resetForm()">Cancelar</button>
+    </div>
+    @if (hasError) {
+      <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+        <ul>
+          @for (error of errors; track $index) {
+            <li>{{error.msg}}</li>
+          }
+        </ul>
+      </div>
+    }
+  </form>
+</div>

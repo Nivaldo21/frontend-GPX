@@ -1,0 +1,73 @@
+<div class="container mx-auto p-4">
+  <div class="flex justify-between items-center my-10">
+    <input placeholder="Buscar Nombre y/o Apellidos...."   (input)="onSearchChange()" [(ngModel)]="search" class="p-2 mb-4 border-blue-700 rounded-lg border-2 focus:ring-4 focus:ring-blue-300 w-1/2" />
+    <button (click)="showForm()" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 rounded-lg px-5 py-2">Agregar Persona</button>
+  </div>
+  @if (showAddForm) {
+    <app-person-form
+      [newPerson]="newPerson"
+      [flagEdit]="flagEdit"
+      [errors]="errors"
+      [hasError]="hasError"
+      (submitForm)="flagEdit ? updatePerson() : addPerson($event)"
+      (resetFormEvent)="resetForm()">
+    </app-person-form>
+  }
+  <div class="relative overflow-x-auto">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 :">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                  Nombre(s)
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Apellido Paterno
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Apellido Matero
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Dirección
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Teléfono
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Acciones
+                </th>
+            </tr>
+        </thead>
+            @for (person of (persons$  | async); track $index) {
+              <tbody>
+                <tr class="bg-white border-b">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                        {{person.firstName}}
+                    </th>
+                    <td class="px-6 py-4">
+                      {{person.lastNameP}}
+                    </td>
+                    <td class="px-6 py-4">
+                      {{person.lastNameM}}
+                    </td>
+                    <td class="px-6 py-4">
+                      {{person.address}}
+                    </td>
+                    <td class="px-6 py-4">
+                      {{person.phone}}
+                    </td>
+                    <td class="px-6 py-4 flex gap-3">
+                      <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5" (click)="editForm(person)">Editar</button>
+                      <button class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2.5" (click)="deletePerson(person.id)">Eliminar</button>
+                    </td>
+                </tr>
+              </tbody>
+            }@empty {
+              <div class="flex items-center justify-center flex-col my-5">
+                <h2 class="text-lg font-semibold text-yellow-600">No se encontro ningún registro</h2>
+                <p>Intenta buscar nuevamente o agrega uno nuevo</p>
+              </div>
+            }
+    </table>
+  </div>
+
+</div>
